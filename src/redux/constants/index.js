@@ -1,0 +1,2 @@
+export const SEARCH_FOCUS = "HEADER_SEARCH_FOCUS";
+export const SEARCH_BLUR = "HEADER_SEARCH_BLUR";
