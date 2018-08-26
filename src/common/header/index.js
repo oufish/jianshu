@@ -9,10 +9,39 @@ import {
     Nav,
     NavItem,
     SearchWrapper,
+    SearchInfo,
+    SearchInfoTitle,
+    SearchInfoList,
+    SearchInfoSWitch,
+    SearchItem,
     NavSearch,
     Addition,
     Button
 } from './style'
+const getListArea = (show) =>{
+    if(show){
+        return(
+            <SearchInfo>
+            <SearchInfoTitle>
+                热门搜索
+                <SearchInfoSWitch>换一批</SearchInfoSWitch>
+            </SearchInfoTitle>
+            <SearchInfoList>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+                <SearchItem>教育</SearchItem>
+            </SearchInfoList>
+        </SearchInfo>
+        )
+    }else{
+        return null
+    }
+}
 const Header = (props) => {
     return (
         <HeaderWrapper>
@@ -38,6 +67,7 @@ const Header = (props) => {
                     ></NavSearch>
                 </CSSTransition>
                 <i className={props.focused?'focused iconfont':'iconfont'}>&#xe614;</i>
+                {getListArea(props.focused)}
             </SearchWrapper>
             </Nav>
             <Addition>
@@ -49,7 +79,8 @@ const Header = (props) => {
         </HeaderWrapper>
     )
 }
-const mapStateToProps = (state) =>({focused:state.headerReducer.get('focused')})
+// const mapStateToProps = (state) =>({focused:state.get('headerReducer').get('focused')})
+const mapStateToProps = (state) =>({focused:state.getIn(['headerReducer','focused'])})
 
 const mapDispathToProps = (dispatch) => ({actions:bindActionCreators(actions, dispatch)})
 
