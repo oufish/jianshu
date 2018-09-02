@@ -10,7 +10,18 @@ export const searchBlur = () =>({
 });
 const changeList = (data) =>({
     type:actionTypes.CHANGE_LIST,
-    data:fromJS(data)
+    data:fromJS(data),
+    totalPage:Math.ceil(data.length / 10)
+});
+export const mouseEnter = () =>({
+    type:actionTypes.MOUSE_ENTER,
+});
+export const mouseLeave = () =>({
+    type:actionTypes.MOUSE_LEAVE,
+});
+export const changePage = (page) =>({
+    type:actionTypes.CHANGE_PAGE,
+    page
 });
 export const getAsyncList = () =>{
     return (dispatch) =>{

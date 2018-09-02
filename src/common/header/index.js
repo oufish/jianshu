@@ -20,19 +20,28 @@ import {
 } from './style'
 class Header extends Component{
     getListArea(){
-        const {focused,list} = this.props;
-        if(focused){
+        const {focused,list,page,mouseIn,totalPage,actions} = this.props;
+        const jsList = list.toJS();//将immutable对象转化为js对象
+        const pageList = [];
+        if(jsList.length){
+            for(let i = ( page - 1) * 10;i< page * 10;i++){
+                pageList.push(
+                    <SearchItem key={jsList[i]}>{jsList[i]}</SearchItem>
+                )
+            }
+        }
+        if(focused || mouseIn){
             return(
-                <SearchInfo>
+                <SearchInfo 
+                    onMouseEnter={actions.mouseEnter}
+                    onMouseLeave={actions.mouseLeave}
+                >
                 <SearchInfoTitle>
                     热门搜索
-                    <SearchInfoSWitch>换一批</SearchInfoSWitch>
+                    <SearchInfoSWitch onClick={()=>this.changePage(page,totalPage)}>换一批</SearchInfoSWitch>
                 </SearchInfoTitle>
                 <SearchInfoList>
-                    {list.map((item,index)=>{
-                        return  <SearchItem key={index}>{item}</SearchItem>
-                    })}
-                   
+                    {pageList}
                 </SearchInfoList>
             </SearchInfo>
             )
@@ -43,6 +52,13 @@ class Header extends Component{
     focus(){
         this.props.actions.getAsyncList()
         this.props.actions.searchFocus()
+    }
+    changePage(page,totalPage){
+        if(page < totalPage){
+            this.props.actions.changePage(page + 1);
+        }else{
+            this.props.actions.changePage(1);
+        }
     }
     render(){
         const { focused,actions} = this.props;
@@ -84,7 +100,15 @@ class Header extends Component{
     }
 }
 // const mapStateToProps = (state) =>({focused:state.get('headerReducer').get('focused')})
-const mapStateToProps = (state) =>({focused:state.getIn(['headerReducer','focused']),list:state.getIn(['headerReducer','list'])})
+const mapStateToProps = (state) =>{
+   return{
+       focused:state.getIn(['headerReducer','focused']),
+       list:state.getIn(['headerReducer','list']),
+       page:state.getIn(['headerReducer','page']),
+       mouseIn:state.getIn(['headerReducer','mouseIn']),
+       totalPage:state.getIn(['headerReducer','totalPage'])
+    }
+}
 
 const mapDispathToProps = (dispatch) => ({actions:bindActionCreators(actions, dispatch)})
 
