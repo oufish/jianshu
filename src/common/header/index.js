@@ -38,7 +38,10 @@ class Header extends Component{
                 >
                 <SearchInfoTitle>
                     热门搜索
-                    <SearchInfoSWitch onClick={()=>this.changePage(page,totalPage)}>换一批</SearchInfoSWitch>
+                    <SearchInfoSWitch onClick={()=>this.changePage(page,totalPage,this.spinIcon)}>
+                        <i ref={icon => this.spinIcon = icon} className="iconfont spin">&#xe851;</i>
+                        换一批
+                    </SearchInfoSWitch>
                 </SearchInfoTitle>
                 <SearchInfoList>
                     {pageList}
@@ -49,11 +52,18 @@ class Header extends Component{
             return null
         }
     }
-    focus(){
-        this.props.actions.getAsyncList()
+    focus(list){
+        (list.size === 0) && this.props.actions.getAsyncList()
         this.props.actions.searchFocus()
     }
-    changePage(page,totalPage){
+    changePage(page,totalPage,spin){
+        let originAngle = spin.style.transform.replace(/[^0-9]/ig,'');
+        if(originAngle){
+            originAngle = parseInt(originAngle,10)
+        }else{
+            originAngle = 0;
+        }
+        spin.style.transform = `rotate(${originAngle + 360}deg)`;
         if(page < totalPage){
             this.props.actions.changePage(page + 1);
         }else{
@@ -61,7 +71,7 @@ class Header extends Component{
         }
     }
     render(){
-        const { focused,actions} = this.props;
+        const { focused,actions,list} = this.props;
         return (
             <HeaderWrapper>
                 <Logo href="/" />
@@ -78,14 +88,15 @@ class Header extends Component{
                         timeout={200}
                         classNames="slide"
                     >
+                    {/* onFocus={::this.focus} */}
                         <NavSearch 
                             placeholder="搜索"
                             className={focused?'focused':''}
-                            onFocus={()=>this.focus()}
+                            onFocus={()=>this.focus(list)}
                             onBlur={actions.searchBlur}
                         ></NavSearch>
                     </CSSTransition>
-                    <i className={focused?'focused iconfont':'iconfont'}>&#xe614;</i>
+                    <i className={focused?'focused iconfont zoom':'iconfont zoom'}>&#xe614;</i>
                     {this.getListArea()}
                 </SearchWrapper>
                 </Nav>
