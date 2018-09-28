@@ -11,3 +11,5 @@
             </div>
           </BrowserRouter>
         </div>
+immutable 中的formJS 会把数组里面的对象也变成immutable对象
+              list 只会把外层数组变成immutable对象，而内部的对象还是js对象

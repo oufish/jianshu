@@ -1,19 +1,25 @@
 import { fromJS } from 'immutable';
+import * as actionTypes  from './../../constants';
 const defaultSatet = fromJS({
-    topicList:[{
-       id:1,
-       title:"摄影" ,
-       imgUrl:"//upload.jianshu.io/collections/images/83/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
-    },{
-        id:2,
-        title:"手绘" ,
-        imgUrl:"//upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
-     }
-]
+    topicList: [],
+    articleList: [],
+    RecommendList: [],
+    page:1
 });
 export default (state = defaultSatet, action) => {
-    switch(action.type) {
+    switch (action.type) {
+        case actionTypes.CHANGE_HOME_DATA:
+            return state.merge({
+                "topicList":fromJS(action.data.topicList),
+                "articleList":fromJS(action.data.articleList),
+                "RecommendList":fromJS(action.data.RecommendList)
+            });
+        case actionTypes.ADD_HOME_LIST:
+            return state.merge({
+                "articleList":state.get('articleList').concat(action.data),
+                "page":action.nextPage
+            });
         default:
-        return state;
+            return state;
     }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { TopicWrapper, TopicItem } from '../style';
-import * as actions from './../../../redux/action/header';
+// import * as actions from './../../../redux/action/header';
 class Topic extends Component {
     render() {
         const { list } = this.props;
@@ -15,6 +15,7 @@ class Topic extends Component {
                                 <img
                                     className="topic-pic"
                                     src={item.imgUrl}
+                                    alt=""
                                 />
                                 {item.title}
                             </TopicItem>
@@ -27,6 +28,6 @@ class Topic extends Component {
 const mapState = (state) => ({
     list: state.getIn(['homeReducer', 'topicList']),
 });
-const mapDispathToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) })
+// const mapDispathToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) })
 
 export default connect(mapState, null)(Topic);
