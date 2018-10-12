@@ -9,10 +9,15 @@ import * as action from './../../redux/action/home';
 import { 
     HomeWrapper,
     HomeLeft,
-    HomeRight
+    HomeRight,
+    BackTop
  } from './style';
 class Home extends Component {
+    scollToTop(){
+        window.scrollTo(0,0)
+    }
     render() {
+        const {showScoll}  = this.props;
         return (
             <HomeWrapper>
                 <HomeLeft>
@@ -24,14 +29,22 @@ class Home extends Component {
                     <Recommend/>
                     <Writer/>
                 </HomeRight>
+                {showScoll? <BackTop onClick={this.scollToTop}>顶部</BackTop>:null}
             </HomeWrapper>
         )
     }
     componentDidMount(){
         this.props.actions.getHomeInfo();
+        this.scoll();
+    }
+    scoll(){
+       window.addEventListener('scoll',this.props.actions.scoll)
     }
 }
+const mapState = (state)=>({
+    showScoll:state.getIn(['homeReducer', 'showScoll']),
+})
 const mapDispatch = (dispatch) =>({
-    actions: bindActionCreators(action, dispatch) 
+    actions: bindActionCreators(action, dispatch)
 });
-export default connect(null,mapDispatch)(Home);
+export default connect(mapState,mapDispatch)(Home);

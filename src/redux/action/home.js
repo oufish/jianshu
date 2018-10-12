@@ -20,10 +20,14 @@ export const  getHomeInfo = ()=>{
 }
 export const loadMore = (page)=>{
     return (dispatch) =>{
-        console.log(page)
         axios.get(`/json/homeList.json?page=${page}`).then(res=>{
             const response = res.data.data;
             dispatch(addHomeList(response,page+1))
         })
+    }
+}
+export const scoll = ()=>{
+    return (dispatch) =>{
+        console.log(document.documentElement.scrollTop)
     }
 }

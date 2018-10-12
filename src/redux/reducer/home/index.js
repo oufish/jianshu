@@ -4,7 +4,8 @@ const defaultSatet = fromJS({
     topicList: [],
     articleList: [],
     RecommendList: [],
-    page:1
+    page:1,
+    showScoll:false
 });
 export default (state = defaultSatet, action) => {
     switch (action.type) {
