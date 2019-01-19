@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Link} from "react-router-dom";
 import { ListItem, ListInfo,LoadMore } from '../style';
 import * as action from './../../../redux/action/home';
 class List extends PureComponent {
@@ -9,13 +10,16 @@ class List extends PureComponent {
         const list = titleList.toJS();
         return (
             <div>
-                {list.map((item,index) => (<ListItem key={index}>
-                    <img className="pic" src={item.imgUrl} alt="" />
-                    <ListInfo>
-                        <h3 className="title">{item.title}</h3>
-                        <p className="desc">{item.desc}</p>
-                    </ListInfo>
-                </ListItem>
+                {list.map((item,index) => (
+                <Link key={index} to="/detail">
+                    <ListItem >
+                        <img className="pic" src={item.imgUrl} alt="" />
+                        <ListInfo>
+                            <h3 className="title">{item.title}</h3>
+                            <p className="desc">{item.desc}</p>
+                        </ListInfo>
+                    </ListItem>
+                </Link>
                 ))
                 }
                 <LoadMore onClick={()=>actions.loadMore(page)}>加载更多</LoadMore>

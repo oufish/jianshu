@@ -2,6 +2,7 @@ import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { CSSTransition } from 'react-transition-group';
+import {Link} from "react-router-dom";
 import * as actions  from './../../redux/action/header';
 import {
     HeaderWrapper,
@@ -74,7 +75,9 @@ class Header extends PureComponent{
         const { focused,actions,list} = this.props;
         return (
             <HeaderWrapper>
-                <Logo href="/" />
+                <Link to="/">
+                    <Logo/>
+                </Link>
                 <Nav>
                 <NavItem className="left active">首页</NavItem>
                 <NavItem className="left">下载App</NavItem>
