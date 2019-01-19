@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
+import {
+    DetailWrapper,
+    Header
+} from "./style";
 class Detail extends PureComponent {
     render() {
         return (
-            <div>Detail</div>
+            <DetailWrapper>
+                <Header>Detail</Header>
+            </DetailWrapper>
         )
     }
 }
