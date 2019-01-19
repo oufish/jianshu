@@ -6,3 +6,4 @@ export const MOUSE_LEAVE = "MOUSE_LEAVE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const CHANGE_HOME_DATA = "CHANGE_HOME_DATA";
 export const ADD_HOME_LIST = "ADD_HOME_LIST";
+export const TOGGLE_TOP_SHOW = "TOGGLE_TOP_SHOW";

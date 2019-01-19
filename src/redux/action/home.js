@@ -10,6 +10,10 @@ const addHomeList = (data,nextPage) => ({
     data:fromJS(data),
     nextPage
 })
+const toggleTopShow = (bool) =>({
+    type:actionTypes.TOGGLE_TOP_SHOW,
+    bool
+})
 export const  getHomeInfo = ()=>{
     return (dispatch) =>{
         axios.get("/json/home.json").then(res=>{
@@ -26,8 +30,12 @@ export const loadMore = (page)=>{
         })
     }
 }
-export const scoll = ()=>{
+export const scoll = (e)=>{
     return (dispatch) =>{
-        console.log(document.documentElement.scrollTop)
+        if(document.documentElement.scrollTop>80){
+            dispatch(toggleTopShow(true))
+        }else{
+            dispatch(toggleTopShow(false))
+        }
     }
 }

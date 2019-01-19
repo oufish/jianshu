@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Topic from './components/Topic';
@@ -12,7 +12,7 @@ import {
     HomeRight,
     BackTop
  } from './style';
-class Home extends Component {
+class Home extends PureComponent {
     scollToTop(){
         window.scrollTo(0,0)
     }
@@ -37,8 +37,11 @@ class Home extends Component {
         this.props.actions.getHomeInfo();
         this.scoll();
     }
+    componentWillUnmount(){
+        window.removeEventListener('scroll',this.props.actions.scoll)
+    }
     scoll(){
-       window.addEventListener('scoll',this.props.actions.scoll)
+       window.addEventListener('scroll',this.props.actions.scoll)
     }
 }
 const mapState = (state)=>({

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ListItem, ListInfo,LoadMore } from '../style';
 import * as action from './../../../redux/action/home';
-class List extends Component {
+class List extends PureComponent {
     render() {
         const { titleList,actions,page} = this.props;
         const list = titleList.toJS();

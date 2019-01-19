@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { CSSTransition } from 'react-transition-group';
@@ -18,7 +18,7 @@ import {
     Addition,
     Button
 } from './style'
-class Header extends Component{
+class Header extends PureComponent{
     getListArea(){
         const {focused,list,page,mouseIn,totalPage,actions} = this.props;
         const jsList = list.toJS();//将immutable对象转化为js对象
